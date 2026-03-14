@@ -1,11 +1,9 @@
-package dev.apollointhehouse.studyspace
+package dev.apollointhehouse.uoatech
 
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    ComposeViewport {
-        App()
-    }
+    ComposeViewport { App() }
 }

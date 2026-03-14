@@ -1,4 +1,4 @@
-package dev.apollointhehouse.studyspace
+package dev.apollointhehouse.uoatech
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,9 +12,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        setContent {
-            App()
-        }
+        setContent { App() }
     }
 }
 

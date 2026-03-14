@@ -1,4 +1,4 @@
-package dev.apollointhehouse.studyspace
+package dev.apollointhehouse.uoatech
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

@@ -1,4 +1,4 @@
-rootProject.name = "studyspace"
+rootProject.name = "UoATech"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
