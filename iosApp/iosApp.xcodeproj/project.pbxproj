@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		6495F37176E840BABF961BCD /* studyspace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = studyspace.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6495F37176E840BABF961BCD /* uoatech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uoatech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -59,7 +59,7 @@
 		283233AF95590049AB1399D1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6495F37176E840BABF961BCD /* studyspace.app */,
+				6495F37176E840BABF961BCD /* uoatech.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,7 +87,7 @@
 			packageProductDependencies = (
 			);
 			productName = iosApp;
-			productReference = 6495F37176E840BABF961BCD /* studyspace.app */;
+			productReference = 6495F37176E840BABF961BCD /* uoatech.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
