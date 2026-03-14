@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel private constructor(): ViewModel() {
     private val _state =
         MutableStateFlow(
             HomeScreenState(
@@ -30,6 +30,14 @@ class HomeViewModel : ViewModel() {
                 action = Action.None,
                 events = API.getEvents()
             ))
+        }
+    }
+
+    companion object {
+        operator fun invoke(): HomeViewModel {
+            val viewModel = HomeViewModel()
+            viewModel.refreshEvents()
+            return viewModel
         }
     }
 }

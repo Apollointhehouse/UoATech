@@ -4,5 +4,5 @@ import kotlin.test.Test
 import kotlinx.coroutines.test.runTest
 
 class APITest {
-    @Test fun `test retrieval of website dom`() = runTest { API.getEvents() }
+    @Test fun `test retrieval of events`() = runTest { API.getEvents() }
 }

@@ -9,7 +9,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,13 +20,9 @@ import dev.apollointhehouse.uoatech.data.state.Event
 import dev.apollointhehouse.uoatech.data.view.HomeViewModel
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
+fun HomeScreen(viewModel: HomeViewModel = viewModel { HomeViewModel() }) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val events = state.events
-
-    SideEffect {
-        viewModel.refreshEvents()
-    }
 
     Column(
         modifier =
