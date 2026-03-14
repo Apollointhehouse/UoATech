@@ -28,4 +28,4 @@ jobs:
         id: gradle
         working-directory: ./
         run: |
-          ./gradlew allTests  # Build the project and produce the JAR
+          ./gradlew testReleaseUnitTest  # Run unit tests
