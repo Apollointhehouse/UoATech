@@ -1,4 +1,4 @@
-name: Test
+name: Unit Tests
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Run build and execute with Gradle wrapper
+      - name: Run unit tests with Gradle wrapper
         id: gradle
         working-directory: ./
         run: |
