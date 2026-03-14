@@ -9,20 +9,25 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import dev.apollointhehouse.uoatech.data.state.Action
 import dev.apollointhehouse.uoatech.data.state.Event
-import dev.apollointhehouse.uoatech.data.state.HomeScreenState
 import dev.apollointhehouse.uoatech.data.view.HomeViewModel
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val events = state.events
+
+    SideEffect {
+        viewModel.refreshEvents()
+    }
 
     Column(
         modifier =
@@ -40,21 +45,23 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(16.dp),
         )
-        EventsList(events, state)
+        when (state.action) {
+            is Action.Loading -> Text("Loading...")
+            is Action.None -> {
+                Text("Events: ${state.events.size}")
+                EventsList(events)
+            }
+        }
     }
 }
 
 @Composable
-private fun EventsList(events: List<Event>, state: HomeScreenState) {
+private fun EventsList(events: List<Event>) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(16.dp),
     ) {
-        item {
-            Text("Events: ${state.events.size}")
-        }
-
         items(events) { event -> EventItem(event) }
     }
 }

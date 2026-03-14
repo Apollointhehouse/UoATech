@@ -3,7 +3,7 @@ package dev.apollointhehouse.uoatech.data.view
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.apollointhehouse.uoatech.data.api.API
-import dev.apollointhehouse.uoatech.data.state.Event
+import dev.apollointhehouse.uoatech.data.state.Action
 import dev.apollointhehouse.uoatech.data.state.HomeScreenState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,10 +22,12 @@ class HomeViewModel : ViewModel() {
     fun refreshEvents() {
         viewModelScope.launch {
             _state.emit(state.value.copy(
+                action = Action.Loading,
                 events = listOf()
             ))
 
             _state.emit(state.value.copy(
+                action = Action.None,
                 events = API.getEvents()
             ))
         }

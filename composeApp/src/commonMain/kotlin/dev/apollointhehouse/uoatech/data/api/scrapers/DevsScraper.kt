@@ -2,7 +2,6 @@ package dev.apollointhehouse.uoatech.data.api.scrapers
 
 import dev.apollointhehouse.uoatech.data.api.scrapers.models.DevsEvent
 import dev.apollointhehouse.uoatech.data.state.Event
-import io.klogging.logger
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -19,8 +18,6 @@ private const val QUERY = "?select=id,title,description,image_url,tag,event_date
 private const val KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmc3VqdXdidXRpdG15Y253dmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYwMTczNjMsImV4cCI6MjA4MTU5MzM2M30.gZZl9h-4Dsj3loaUHptk9-m29d6VOJ_261FKJA0AXc4"
 
 class DevsScraper(private val client: HttpClient) : EventScraper {
-    private val logger = logger<DevsScraper>()
-
     override suspend fun getEvents(): Flow<Event> {
         val res: Array<DevsEvent> = client.get(urlString = API + QUERY) {
             headers {
@@ -28,7 +25,7 @@ class DevsScraper(private val client: HttpClient) : EventScraper {
             }
 
             userAgent("KTor Client: UoATech")
-            bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmc3VqdXdidXRpdG15Y253dmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYwMTczNjMsImV4cCI6MjA4MTU5MzM2M30.gZZl9h-4Dsj3loaUHptk9-m29d6VOJ_261FKJA0AXc4")
+            bearerAuth(KEY)
         }.body()
 
         val result = flow {
@@ -53,8 +50,6 @@ class DevsScraper(private val client: HttpClient) : EventScraper {
                 ))
             }
         }
-
-        logger.info { result.toString() }
 
         return result
     }
