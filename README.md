@@ -1,63 +1,69 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web.
+# UoATech
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+UoATech is a Kotlin Multiplatform application designed for students at the University of Auckland. It aggregates upcoming events from various tech clubs across the university, providing a single, convenient list for students to stay informed about workshops, talks, and networking opportunities.
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## Features
+
+- **Event Aggregation**: Automatically fetches events from multiple tech club websites (e.g., DEVS).
+- **Unified List**: Displays all upcoming events in a clean, searchable, and easy-to-read interface.
+- **Multiplatform Support**: Available on Android, iOS, and Web.
+- **Detailed Event Information**: Shows event name, hosting club, date, time, location, and description.
+
+## Project Structure
+
+This project is built using **Compose Multiplatform** and follows a standard Kotlin Multiplatform structure:
+
+*   [`/composeApp`](./composeApp/src): Contains shared code for all platforms.
+    *   [`commonMain`](./composeApp/src/commonMain/kotlin): Core logic, data models, and UI components.
+    *   `androidMain`, `iosMain`, `webMain`: Platform-specific implementations and entry points.
+*   [`/iosApp`](./iosApp): The iOS-specific Xcode project and SwiftUI entry point.
+
+## Technology Stack
+
+- **Kotlin Multiplatform (KMP)**: For sharing business logic across platforms.
+- **Compose Multiplatform**: For building a shared UI.
+- **Ktor**: Used for making asynchronous network requests to fetch event data.
+- **Kotlinx Serialization**: For parsing JSON data from club APIs.
+- **Kotlinx Coroutines & Flow**: For reactive and asynchronous data handling.
+- **Kotlinx Datetime**: For consistent date and time management.
+
+## How it Works
+
+The app uses a "Scraper" architecture to fetch data from different sources. Each tech club has a corresponding `EventScraper` implementation (e.g., `DevsScraper`) that:
+1.  Fetches data from the club's website or API.
+2.  Parses the data into a common `Event` model.
+3.  Filters out past events.
+
+The `API` object coordinates these scrapers to provide a unified flow of events to the UI.
+
+## Getting Started
+
+### Prerequisites
+
+- [Android Studio](https://developer.android.com/studio) or [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+- [Xcode](https://developer.apple.com/xcode/) (for iOS development)
+- [JDK 17](https://www.oracle.com/java/technologies/downloads/) or higher
 
 ### Build and Run Android Application
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+To build and run the development version of the Android app, use the run configuration from the IDE or run from the terminal:
+- **Windows**: `.\gradlew.bat :composeApp:assembleDebug`
+- **macOS/Linux**: `./gradlew :composeApp:assembleDebug`
 
 ### Build and Run Web Application
 
-To build and run the development version of the web app, use the run configuration from the run widget
-in your IDE's toolbar or run it directly from the terminal:
-- for the Wasm target (faster, modern browsers):
-  - on macOS/Linux
-    ```shell
-    ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
-    ```
-  - on Windows
-    ```shell
-    .\gradlew.bat :composeApp:wasmJsBrowserDevelopmentRun
-    ```
-- for the JS target (slower, supports older browsers):
-  - on macOS/Linux
-    ```shell
-    ./gradlew :composeApp:jsBrowserDevelopmentRun
-    ```
-  - on Windows
-    ```shell
-    .\gradlew.bat :composeApp:jsBrowserDevelopmentRun
-    ```
+The web app supports both Wasm and JS targets:
+- **Wasm (Modern browsers)**: `.\gradlew.bat :composeApp:wasmJsBrowserDevelopmentRun`
+- **JS (Broad compatibility)**: `.\gradlew.bat :composeApp:jsBrowserDevelopmentRun`
 
 ### Build and Run iOS Application
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+Use the run configuration in your IDE or open the [`/iosApp`](./iosApp) directory in Xcode.
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) and [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform).
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
