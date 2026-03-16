@@ -22,11 +22,6 @@ kotlin {
         }
     }
 
-    js {
-        browser()
-        binaries.executable()
-    }
-
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
@@ -56,10 +51,16 @@ kotlin {
             implementation(libs.ksoup.network)
             implementation(libs.klogging)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.postgrest.kt)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
+        }
+        wasmJsMain.dependencies {
+            implementation(libs.ktor.client.js)
+            implementation(npm("@js-joda/timezone", "2.23.0"))
         }
     }
 }
