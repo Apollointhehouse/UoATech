@@ -1,6 +1,7 @@
 package dev.apollointhehouse.uoatech.ui.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -63,7 +65,17 @@ private fun EventsList(events: List<Event>) {
 
 @Composable
 private fun EventItem(event: Event) {
-    Card(modifier = Modifier.fillMaxWidth()) {
+    val uriHandler = LocalUriHandler.current
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(
+                enabled = event.registerURL.isNotEmpty(),
+            ) {
+                uriHandler.openUri(event.registerURL)
+            }
+    ) {
         Column(
             modifier = Modifier.padding(16.dp).fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -78,7 +90,7 @@ private fun EventItem(event: Event) {
                 color = MaterialTheme.colorScheme.primary,
             )
             Text(
-                text = "${event.date} | ${event.startTime} - ${event.endTime} | ${event.location}",
+                text = "${event.date} | ${event.time} | ${event.location}",
                 style = MaterialTheme.typography.bodyMedium,
             )
             Text(

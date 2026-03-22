@@ -31,6 +31,6 @@ class DiscordDBScraper : EventScraper {
 
     private suspend fun getDiscordEvents(): List<Event> = supabase
         .from("events")
-        .select(Columns.list("name", "description", "date", "startTime", "endTime", "club", "location"))
+        .select(Columns.ALL)
         .decodeList()
 }

@@ -28,24 +28,22 @@ class DevsScraper : EventScraper {
             val currentDate = Clock.System.todayIn(zone)
             if (currentDate > eventDate) continue
 
-            val (startTime, endTime) = event.eventTime
-                .split("-")
-                .map { it.trim() }
+            val registerUrl = event.registerUrl.ifEmpty { "https://www.devsuoa.com/events#${event.id}" }
 
             emit(Event(
                 name = event.title,
                 description = event.description,
                 date = eventDate,
-                startTime = startTime,
-                endTime = endTime,
+                time = event.eventTime,
                 club = "DEVS",
-                location = event.location
+                location = event.location,
+                registerURL = registerUrl
             ))
         }
     }
 
     private suspend fun getDevsEvents(): List<DevsEvent> = supabase
         .from("events")
-        .select(Columns.list("id", "title", "description", "image_url", "tag", "event_date", "event_time", "location", "register_url"))
+        .select(Columns.list("title", "description", "event_date", "event_time", "location", "register_url", "id"))
         .decodeList()
 }
